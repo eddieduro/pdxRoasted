@@ -5,22 +5,27 @@ import { Roast } from './roast.model';
   selector: 'search',
   inputs: ['roasts'],
   template: `
-  <button (click)="getFlavorList()">click</button>
+  <button (click)="logAll()">click</button>
   <select>
-    <option *ngFor="#roast of roasts" value={{roast.name}}>{{roast.name}}</option>
+    <option default>Choose a flavor</option>
+    <option *ngFor="#flavor of flavors" value={{flavor}}>{{flavor}}</option>
   </select>
+
   `
 })
 export class SearchComponent{
   public roasts: Roast[];
-  // public flavors: ["cherry", "vanilla", "honey", "almond", "caramel", "chocolate", "rose", "apple"];
-  // logAllTheThings() {
-  //   console.log(this.roasts);
-  //   console.log(this.flavors);
-  // }
+  public flavors: string[];
+  constructor(){
+    this.flavors = ["cherry", "vanilla", "honey", "almond", "caramel", "chocolate", "rose", "apple"];
+  }
+  logAll() {
+    console.log(this.roasts);
+    console.log(this.flavors);
+  }
   getFlavorList() {
     var roasts = this.roasts;
-    var flavors = [];
+    var flavorsArr = [];
     roasts.forEach(function(roast){
       var roast_flavors = roast.flavors;
       roast_flavors.forEach(function(flavor){
@@ -29,6 +34,6 @@ export class SearchComponent{
         }
       });
     });
-    console.log(flavors);
+    this.flavors = flavorsArr;
   }
 }
